@@ -22,27 +22,13 @@ store them as an object, which is what I would have done in the first
 place. 
 
 NOTE: Now I'm pretty sure Maps rule. I really dig:
-```
+
 function mapToJson(map) {
     return JSON.stringify([...map]);
 }
 function jsonToMap(jsonStr) {
     return new Map(JSON.parse(jsonStr));
 }
-```
-
-Commands to implement
----------------------
-- /alias (.+) (.+)/        :add a new alias
-- /aliases/                       :lists all aliases
-- /unalias (.+)/                :delete an alias
-
-
-Important Notes
----------------
--
--
-
 */
 
 const rgxAddNew = /^(alias) (\w+) (.+)$/
@@ -66,22 +52,20 @@ module.exports = (srcPath, bundlePath) => {
       let operation = ''
 
       if (  rgxAddNew.test(s)  ) {
-        Broadcast.sayAt(player, addAlias( s, player ))
+        Broadcast.sayAt(player, addAlias(s, player))
 
       } else if (  rgxCheckSpecific.test(s)  ) {
-        Broadcast.sayAt(player, checkAlias( s, player ))
+        Broadcast.sayAt(player, checkAlias(s, player))
 
       } else if (  rgxListAll.test(s)  ) {
         Broadcast.sayAt(player, listAliases(s, player))
 
       } else if (  rgxDelete.test(s)  ) {
         Broadcast.sayAt(player, deleteAlias(s, player))
-        
+
       } else {
         return Broadcast.sayAt(player, "Not a valid alias command. See '<b>help alias</b>'.")
       }
-
-
     }    
   }
 }
