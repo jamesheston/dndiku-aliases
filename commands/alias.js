@@ -11,14 +11,24 @@ bundle' s code mostly to itself. Instead, I'll just pass the player instance
 object and whatever other data is needed into what are basically "reducer" 
 functions for manipulating Player.aliases object.
 
-However, these "reducers" don't return the modified object. Instead they return whatever
-confirmation or error message string needs to be Broadcast to the user. So the player objects
-are modified inside these "reducers" without being returned.
+However, these "reducers" don't return the modified object. Instead they return 
+whatever confirmation or error message string needs to be Broadcast to the 
+user. So the player objects are modified inside these "reducers" without being 
+returned.
 
 I am going to try to store Player.aliases as a Map() b/c that's more in 
 the style of the rest of ranvier, but if I don't like that, I may just 
 store them as an object, which is what I would have done in the first
-place.
+place. 
+
+NOTE: Now I'm pretty sure Maps rule. I really dig:
+
+function mapToJson(map) {
+    return JSON.stringify([...map]);
+}
+function jsonToMap(jsonStr) {
+    return new Map(JSON.parse(jsonStr));
+}
 
 
 Commands to implement
@@ -66,6 +76,7 @@ module.exports = (srcPath, bundlePath) => {
 
       } else if (  rgxDelete.test(s)  ) {
         Broadcast.sayAt(player, deleteAlias(s, player))
+        
       } else {
         return Broadcast.sayAt(player, "Not a valid alias command. See '<b>help alias</b>'.")
       }

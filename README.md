@@ -6,16 +6,19 @@ Aliases for the legendary JavaScript MUD engine!
 Right now, the alias system is very simple: just substring replacement and no regex support.
 
 
-* Add an alias
-`alias cce close exit east`
-`alias <shortcut> <command>`
+* __Add an alias__
+  `alias cce close exit east`
+  `alias t stand`
+  `alias r rest`
 
-* Check an alias
+* __Check an alias__
+  `alias t`
 
-* List all aliases
+* __List all aliases__
+  `aliases`
 
-* Remove an alias
-
+* __Remove an alias__
+  `unalias t`
 
 
 
