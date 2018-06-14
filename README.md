@@ -24,15 +24,18 @@ Right now, the alias system is very simple: just substring replacement and no re
 
 ## How to Install
 
-1. git clone bundle into your ranvier repo's bundles directory
-  ```
-  git clone 
-  ```
-2. add the another line to the "bundles" array in ranvier.json (delete comma if it's last entry in "bundles" array)
-  ```
-      "dndiku-aliases",
-  ```
-3. add the following line to src/Player.js in the constructor method
+#### 1. Clone repo into your ranvier/bundles directory
+```
+git clone 
+```
+
+#### 2. Edit `ranvier.json` to load aliases bundle
+Add this line to the "bundles" array in ranvier.json. Make sure to delete the comma if it's last entry in "bundles" array.
+```
+    "dndiku-aliases",
+```
+
+#### 3. add the following line to src/Player.js in the constructor method
   ```
       this.aliases = new Map( JSON.parse(data.aliases) ) || new Map();
   ```
