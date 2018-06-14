@@ -30,7 +30,7 @@ You will have to edit couple files in the `/src` directory as well as installing
 git clone 
 ```
 
-#### 2. Edit `/ranvier.json` to load aliases bundle
+#### 2. Edit `/ranvier.json` to enable aliases bundle
 Add this line to the "bundles" array in ranvier.json. Make sure to delete the comma if it's last entry in "bundles" array.
 ```
     "dndiku-aliases",
