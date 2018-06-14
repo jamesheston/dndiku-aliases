@@ -1,22 +1,22 @@
-# Ranvier Bundle - dndiku-aliases
-Aliases for the legendary JavaScript MUD engine!
+# Ranvier MUD Engine Bundle - dndiku-aliases
+Alias support for the legendary JavaScript MUD engine!
 
 
 ## How to Use
 Right now, the alias system is very simple: just substring replacement and no regex support.
 
 
-* __Add an alias__
-  `alias t stand`
+#### Add an alias
+`alias t stand`
 
-* __Check an alias__
-  `alias t`
+#### Check an alias
+`alias t`
 
-* __List all aliases__
-  `aliases`
+#### List all aliases
+`aliases`
 
-* __Remove an alias__
-  `unalias t`
+#### Remove an alias
+`unalias t`
 
 
 
