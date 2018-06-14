@@ -22,14 +22,14 @@ store them as an object, which is what I would have done in the first
 place. 
 
 NOTE: Now I'm pretty sure Maps rule. I really dig:
-
+```
 function mapToJson(map) {
     return JSON.stringify([...map]);
 }
 function jsonToMap(jsonStr) {
     return new Map(JSON.parse(jsonStr));
 }
-
+```
 
 Commands to implement
 ---------------------
