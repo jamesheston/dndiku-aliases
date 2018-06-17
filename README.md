@@ -8,7 +8,6 @@ Right now, the alias system is very simple: just plain substring replacement - n
 
 #### Add an alias
 `alias t stand`
-`alias ka kill animal`
 
 #### Check an alias
 `alias t`
@@ -24,7 +23,7 @@ Right now, the alias system is very simple: just plain substring replacement - n
 
 
 ## How to Install
-You will have to edit couple files in the `/src` directory as well as installing the bundle. Atm in ranvier I don't know of any way around this.
+You will have to edit couple files in the `/src` directory as well as installing the bundle. 
 
 #### 1. Clone repo into your ranvier/bundles directory
 ```
