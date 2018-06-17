@@ -1,36 +1,3 @@
-/*
-
-Pattern Design Decisions
-------------------------
-If you look at other iterable Player/Character properties like this.equipment 
-or this.combatants, they have methods like Character.addCombatant(target) or 
-Character.equip(item, slot).
-
-I am intentionally not adding any methods to Player.js so that I can keep the 
-bundle' s code mostly to itself. Instead, I'll just pass the player instance
-object and whatever other data is needed into what are basically "reducer" 
-functions for manipulating Player.aliases object.
-
-However, these "reducers" don't return the modified object. Instead they return 
-whatever confirmation or error message string needs to be Broadcast to the 
-user. So the player objects are modified inside these "reducers" without being 
-returned.
-
-I am going to try to store Player.aliases as a Map() b/c that's more in 
-the style of the rest of ranvier, but if I don't like that, I may just 
-store them as an object, which is what I would have done in the first
-place. 
-
-NOTE: Now I'm pretty sure Maps rule. I really dig:
-
-function mapToJson(map) {
-    return JSON.stringify([...map]);
-}
-function jsonToMap(jsonStr) {
-    return new Map(JSON.parse(jsonStr));
-}
-*/
-
 const rgxAddNew = /^(alias) (\w+) (.+)$/
 const rgxCheckSpecific = /^(alias) (\w+)$/
 const rgxListAll = /^aliases$/
