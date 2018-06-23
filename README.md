@@ -23,7 +23,7 @@ Right now, the alias system is very simple: just plain substring replacement - n
 
 
 ## How to Install
-You will have to edit couple files in the `/src` directory as well as installing the bundle. 
+You will have to edit a couple files in the `/src` directory as well as installing the bundle.
 
 #### 1. Clone repo into your ranvier/bundles directory
 ```
@@ -37,6 +37,8 @@ Add this line to the "bundles" array in ranvier.json. Make sure to delete the co
 ```
 
 #### 3. Edit `/src/Player.js` to load previously defined aliases 
+Aliases are stored as a property in Player.js instead of in metadata to keep user input performant.
+
 Add the following line to src/Player.js in the constructor method
 ```
     if( data.aliases ) {
@@ -53,8 +55,12 @@ Again in src/Player.js, add a new line to the data object in Player.serialize()
 ```
 
 #### 5. Edit `src/CommandParser.js` to replace user input with alias values they specified
-Add the following lines toward the beginning of src/CommandParser.js, after `const parts = data.split(' ');` and before `const command = parts.shift().toLowerCase();`
+Add the following lines toward the beginning of src/CommandParser.js, after `static parse(state, data, player) {` and before `const command = parts.shift().toLowerCase();`
 ```
+    data = data.trim();
+
+    let parts = data.split(' ');    
+    
     // 1st arg is current target for potential alias key
     const _key = parts[0] 
     // if 1st arg is an alias, just replace that part with alias value
