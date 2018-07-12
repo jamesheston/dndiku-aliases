@@ -23,7 +23,7 @@ Right now, the alias system is very simple: just plain substring replacement - n
 
 
 ## How to Install
-You will have to edit a couple files in the `/src` directory as well as installing the bundle.
+You will have to edit a file in the `/src` directory as well as installing the bundle.
 
 #### 1. Clone repo into your ranvier/bundles directory
 ```
