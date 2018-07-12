@@ -57,7 +57,7 @@ function checkAlias(userInputString, p) {
   // update aliases object with new entry
   const key = userInputString.match(rgxCheckSpecific)[1]
  
-  if(! getMeta('aliases') ) {
+  if(! p.getMeta('aliases') ) {
     output = 'You have no aliases defined.'
     return output
   }
@@ -91,6 +91,7 @@ function deleteAlias(userInputString, p) {
   const key = userInputString.match(rgxDelete)[1]
 
   if( p.getMeta('aliases') && p.metadata.aliases.get(key) ) {
+    value = p.metadata.aliases.get(key)
     p.metadata.aliases.delete(key)
     output = `You have deleted alias "${key}" for "${value}".`
   } else {
