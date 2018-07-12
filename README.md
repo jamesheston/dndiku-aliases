@@ -36,25 +36,7 @@ Add this line to the "bundles" array in ranvier.json. Make sure to delete the co
     "dndiku-aliases",
 ```
 
-#### 3. Edit `/src/Player.js` to load previously defined aliases 
-Aliases are stored as a property in Player.js instead of in metadata to keep user input performant.
-
-Add the following line to src/Player.js in the constructor method
-```
-    if( data.aliases ) {
-      this.aliases = new Map( JSON.parse(data.aliases) )
-    } else {
-      this.aliases = new Map()
-    }
-```
-
-#### 4. Edit `/src/Player.js` to save aliases between sessions 
-Again in src/Player.js, add a new line to the data object in Player.serialize() 
-```
-      aliases: JSON.stringify([...this.aliases]),
-```
-
-#### 5. Edit `src/CommandParser.js` to replace user input with alias values they specified
+#### 3. Edit `src/CommandParser.js` to replace user input with alias values they specified
 Add the following lines toward the beginning of src/CommandParser.js, after `static parse(state, data, player) {` and before `const command = parts.shift().toLowerCase();`
 ```
     data = data.trim();
@@ -64,7 +46,7 @@ Add the following lines toward the beginning of src/CommandParser.js, after `sta
     // 1st arg is current target for potential alias key
     const _key = parts[0] 
     // if 1st arg is an alias, just replace that part with alias value
-    if(  player.aliases.has(_key)  ){
+    if(  player.getMeta('aliases') && player.aliases.has(_key)  ){
       const _val = player.aliases.get(_key)
       // remove original first argument from parts
       parts.shift()
@@ -72,3 +54,6 @@ Add the following lines toward the beginning of src/CommandParser.js, after `sta
       parts = _val.split(' ').concat(parts)
     }
 ```
+
+## Thanks
+Thanks to seanohue, khyldes, and marcelo for testing the bundle or telling me how to improve the bundle.

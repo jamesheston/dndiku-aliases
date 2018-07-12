@@ -37,25 +37,32 @@ module.exports = (srcPath, bundlePath) => {
   }
 }
 
-function addAlias(userInputString, player) {
+function addAlias(userInputString, p) {
   let output = ''
   // update aliases object with new entry
   const key = userInputString.match(rgxAddNew)[2]
   const value = userInputString.match(rgxAddNew)[3]
 
-  if(! player.aliases ) {
-    player.aliases = new Map()
-  } 
-  player.aliases.set(key, value)
+  if(! p.getMeta('aliases')) {
+    p.setMeta(  'aliases', new Map()  )
+  }
+
+  p.metadata.aliases.set(key, value)
   output = `You have added a new alias "${key}" for "${value}".` 
 
   return output
 }
-function checkAlias(userInputString, player) {
+function checkAlias(userInputString, p) {
   let output = ''
   // update aliases object with new entry
   const key = userInputString.match(rgxCheckSpecific)[1]
-  const value = player.aliases.get(key)
+ 
+  if(! getMeta('aliases') ) {
+    output = 'You have no aliases defined.'
+    return output
+  }
+
+  const value = p.metadata.aliases.get(key)
 
   if( value ) {
     output = `{${key}} : {${value}}`
@@ -65,11 +72,11 @@ function checkAlias(userInputString, player) {
 
   return output
 }
-function listAliases(userInputString, player) {
+function listAliases(userInputString, p) {
   let output = ''
   // if a player has any aliases, iterate over them, echoing every single one
-  if( player.aliases.size ) {
-    for (const [key, value] of player.aliases) {
+  if( p.getMeta('aliases') && p.metadata.aliases.size ) {
+    for (const [key, value] of p.metadata.aliases) {
       output +=  `{${key}} : {${value}}\n`
     }
 
@@ -79,12 +86,12 @@ function listAliases(userInputString, player) {
 
   return output
 }
-function deleteAlias(userInputString, player) {
+function deleteAlias(userInputString, p) {
   let output = ''
   const key = userInputString.match(rgxDelete)[1]
 
-  if( player.aliases.get(key) ) {
-    player.aliases.delete(key)
+  if( p.getMeta('aliases') && p.metadata.aliases.get(key) ) {
+    p.metadata.aliases.delete(key)
     output = `You have deleted alias "${key}" for "${value}".`
   } else {
     output = `You have no alias set for "${key}". It is already clear.`
