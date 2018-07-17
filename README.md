@@ -27,7 +27,7 @@ You will have to edit a file in the `/src` directory as well as installing the b
 
 #### 1. Clone repo into your ranvier/bundles directory
 ```
-git clone 
+git clone https://github.com/jamesheston/dndiku-aliases.git
 ```
 
 #### 2. Edit `/ranvier.json` to enable aliases bundle
