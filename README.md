@@ -45,9 +45,11 @@ Add the following lines toward the beginning of src/CommandParser.js, after `sta
 
     // 1st arg is current target for potential alias key
     const _key = parts[0] 
+
     // if 1st arg is an alias, just replace that part with alias value
-    if(  typeof(player.getMeta('aliases')) === Map && player.metadata.aliases.has(_key)  ){
-      const _val = player.metadata.aliases.get(_key)
+    if(  player.metadata.aliases && player.metadata.aliases.hasOwnProperty(_key)  ){
+
+      const _val = player.metadata.aliases[_key]
       // remove original first argument from parts
       parts.shift()
       // prepend exploded replacement to original parts

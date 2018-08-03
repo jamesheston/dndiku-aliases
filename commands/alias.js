@@ -31,7 +31,7 @@ module.exports = (srcPath, bundlePath) => {
         Broadcast.sayAt(player, deleteAlias(s, player))
 
       } else {
-        return Broadcast.sayAt(player, "Not a valid alias command. See '<b>help alias</b>'.")
+        return Broadcast.sayAt(player, 'Not a valid alias command. See "help alias".')
       }
     }    
   }
@@ -39,45 +39,42 @@ module.exports = (srcPath, bundlePath) => {
 
 function addAlias(userInputString, p) {
   let output = ''
+  const aliases = validateMeta(p)
   // update aliases object with new entry
   const key = userInputString.match(rgxAddNew)[2]
   const value = userInputString.match(rgxAddNew)[3]
+  aliases[key] = value
 
-  if(! p.getMeta('aliases')) {
-    p.setMeta(  'aliases', new Map()  )
-  }
-
-  p.metadata.aliases.set(key, value)
+  p.setMeta('aliases', aliases) // write changes to player config file
   output = `You have added a new alias "${key}" for "${value}".` 
-
   return output
 }
 function checkAlias(userInputString, p) {
   let output = ''
+  const aliases = validateMeta(p)
+
   // update aliases object with new entry
   const key = userInputString.match(rgxCheckSpecific)[1]
- 
-  if(! p.getMeta('aliases') ) {
-    output = 'You have no aliases defined.'
-    return output
-  }
-
-  const value = p.metadata.aliases.get(key)
-
+  const value = aliases[key]
+    
   if( value ) {
     output = `{${key}} : {${value}}`
   } else {
     output = `You have no alias for "${key}".`
   }
-
   return output
 }
 function listAliases(userInputString, p) {
   let output = ''
+  const aliases = validateMeta(p)
+
   // if a player has any aliases, iterate over them, echoing every single one
-  if( p.getMeta('aliases') && p.metadata.aliases.size ) {
-    for (const [key, value] of p.metadata.aliases) {
-      output +=  `{${key}} : {${value}}\n`
+  if( Object.keys(aliases).length ) {
+    for( var key in aliases ) {
+      if( aliases.hasOwnProperty(key) ){
+        const value = aliases[key]
+        output+= `{${key}} : {${value}}\n`
+      }
     }
 
   } else {
@@ -88,15 +85,31 @@ function listAliases(userInputString, p) {
 }
 function deleteAlias(userInputString, p) {
   let output = ''
+  const aliases = validateMeta(p)
   const key = userInputString.match(rgxDelete)[1]
 
-  if( p.getMeta('aliases') && p.metadata.aliases.get(key) ) {
-    value = p.metadata.aliases.get(key)
-    p.metadata.aliases.delete(key)
+  if( aliases[key] ){
+    value = aliases[key]
+    delete aliases[key]
     output = `You have deleted alias "${key}" for "${value}".`
   } else {
     output = `You have no alias set for "${key}". It is already clear.`
   }
 
+  p.setMeta('aliases', aliases) // write changes to player config file
   return output
+}
+
+// Helper functions
+//-----------------
+function validateMeta(p) {
+  let aliases = p.getMeta('aliases')
+  if (!aliases) {
+    aliases = {}
+  } 
+
+  // add more checks here later for other forms of bad data
+
+  p.setMeta('aliases', aliases)
+  return aliases
 }
